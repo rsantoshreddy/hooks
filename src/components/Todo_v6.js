@@ -42,7 +42,7 @@ const Todo = props => {
       .post('https://todo-8c844.firebaseio.com/todo.json', { name: toDoName })
       .then(res => {
         console.log(res);
-        const todo = { id: res.name, name: todoName };
+        const todo = { id: res.name, name: toDoName };
         updateTodoList(toDoList.concat(todo));
         console.log('Added');
       })

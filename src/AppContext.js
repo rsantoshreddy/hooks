@@ -1,13 +1,7 @@
-import React, { useState } from 'react';
-// import Todo from './components/Todo_v1';
-// import Todo from './components/Todo_v2';
-// import Todo from './components/Todo_v3';
-// import Todo from './components/Todo_v4';
-// import Todo from './components/Todo_v5';
-// import Todo from './components/Todo_v6';
-// import Todo from './components/Todo_v7';
-
+// Converting App.js to context ready
+// Demonstrate componentWillUnmount()
 // Context
+import React, { useState } from 'react';
 import Header from './components/Header';
 import Auth from './components/Auth';
 import Todo from './components/Todo_v8';

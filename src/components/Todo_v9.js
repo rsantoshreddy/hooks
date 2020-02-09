@@ -1,26 +1,37 @@
-﻿// Fix infinite request issue:
-// componentDidMount();
-//  componentDidUpdate();
-// componentWillUnmount();
-
-import React, { useState, useEffect } from 'react';
+﻿// UseReducer
+import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
 
 const Todo = props => {
   const [toDoName, updateTodoName] = useState('');
-  const [toDoList, updateTodoList] = useState([]);
+  // const [toDoList, updateTodoList] = useState([]);
+
+  const toDoListReducer = (state, action) => {
+    switch (action.type) {
+      case 'SET':
+        console.log('SET');
+        return action.payload;
+      case 'ADD':
+        return state.concat(action.payload);
+      default:
+        return state;
+    }
+  };
+
+  const [toDoList, dispatch] = useReducer(toDoListReducer, []);
 
   useEffect(() => {
     axios
       .get('https://todo-8c844.firebaseio.com/todo.json')
       .then(res => {
+        console.log(res);
         const todoData = res.data;
         const todos = [];
         if (todoData) {
           for (const key in todoData) {
             todos.push({ id: key, name: todoData[key].name });
           }
-          updateTodoList(todos);
+          dispatch({ type: 'SET', payload: todos });
         }
       })
       .catch(err => {
@@ -43,7 +54,8 @@ const Todo = props => {
         console.log(res);
         console.log(res);
         const todo = { id: res.name, name: toDoName };
-        updateTodoList(toDoList.concat(todo));
+        // updateTodoList(toDoList.concat(todo));
+        dispatch({ type: 'ADD', payload: toDoList.concat(todo) });
         console.log('Added');
       })
       .catch(err => {

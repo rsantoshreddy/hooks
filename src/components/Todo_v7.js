@@ -14,6 +14,7 @@ const Todo = props => {
     axios
       .get('https://todo-8c844.firebaseio.com/todo.json')
       .then(res => {
+        console.log(res);
         const todoData = res.data;
         const todos = [];
         if (todoData) {
